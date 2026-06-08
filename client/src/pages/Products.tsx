@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../services/api";
 import toast from "react-hot-toast";
@@ -10,9 +10,13 @@ import {
   AlertTriangle,
   X,
   Loader2,
+  Camera,
 } from "lucide-react";
 import ConfirmModal from "../components/ConfirmModal";
 import Pagination from "../components/Pagination";
+
+// Lazy load BarcodeScanner to prevent @zxing/library from crashing the page
+const BarcodeScanner = lazy(() => import("../components/BarcodeScanner"));
 
 interface Product {
   id: string;
@@ -69,6 +73,14 @@ export default function Products() {
     isOpen: false,
     id: null,
   });
+  const [showBarcodeScanner, setShowBarcodeScanner] = useState(false);
+
+  // Handle barcode scan result from camera
+  const handleBarcodeScan = (barcode: string) => {
+    setFormData((prev) => ({ ...prev, barcode }));
+    setShowBarcodeScanner(false);
+    toast.success(`Barcode scanned: ${barcode}`);
+  };
 
   // Fetch products with pagination
   const { data: productsData, isLoading } = useQuery({
@@ -409,14 +421,26 @@ export default function Products() {
                   <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
                     Barcode
                   </label>
-                  <input
-                    type="text"
-                    value={formData.barcode}
-                    onChange={(e) =>
-                      setFormData({ ...formData, barcode: e.target.value })
-                    }
-                    className="w-full px-3 py-2 text-gray-900 bg-white border rounded-lg dark:border-gray-600 focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
-                  />
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={formData.barcode}
+                      onChange={(e) =>
+                        setFormData({ ...formData, barcode: e.target.value })
+                      }
+                      placeholder="Enter or scan barcode"
+                      className="flex-1 px-3 py-2 text-gray-900 bg-white border rounded-lg dark:border-gray-600 focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowBarcodeScanner(true)}
+                      className="flex items-center gap-1.5 px-3 py-2 text-gray-700 transition bg-gray-100 border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-500 dark:text-gray-200 icon-animated shrink-0"
+                      title="Scan barcode with camera"
+                    >
+                      <Camera className="w-4 h-4 transition-transform" />
+                      <span className="hidden sm:inline text-sm">Scan</span>
+                    </button>
+                  </div>
                 </div>
                 <div>
                   <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -558,6 +582,24 @@ export default function Products() {
             </form>
           </div>
         </div>
+      )}
+
+      {/* Barcode Scanner Modal */}
+      {showBarcodeScanner && (
+        <Suspense
+          fallback={
+            <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50">
+              <Loader2 className="w-8 h-8 text-white animate-spin" />
+            </div>
+          }
+        >
+          <div className="z-[60]">
+            <BarcodeScanner
+              onScan={handleBarcodeScan}
+              onClose={() => setShowBarcodeScanner(false)}
+            />
+          </div>
+        </Suspense>
       )}
 
       {/* Delete Confirmation Modal */}
