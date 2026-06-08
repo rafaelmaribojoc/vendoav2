@@ -244,11 +244,10 @@ export default function StockMovements() {
                       </td>
                       <td className="px-4 py-3">
                         <span
-                          className={`px-2 py-1 text-xs rounded-full ${
-                            m.type === "in"
+                          className={`px-2 py-1 text-xs rounded-full ${m.type === "in"
                               ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
                               : "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300"
-                          }`}
+                            }`}
                         >
                           {m.type === "in" ? "IN" : "OUT"}
                         </span>
@@ -336,9 +335,8 @@ export default function StockMovements() {
                           className="w-full pl-10 pr-10 py-2 border dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400"
                         />
                         <ChevronDown
-                          className={`absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 transition-transform ${
-                            showProductDropdown ? "rotate-180" : ""
-                          }`}
+                          className={`absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 transition-transform ${showProductDropdown ? "rotate-180" : ""
+                            }`}
                         />
                       </div>
 
@@ -453,11 +451,10 @@ export default function StockMovements() {
                 </button>
                 <button
                   type="submit"
-                  className={`px-4 py-2 text-white rounded-lg ${
-                    actionType === "receive"
+                  className={`px-4 py-2 text-white rounded-lg ${actionType === "receive"
                       ? "bg-green-500 hover:bg-green-600"
                       : "bg-orange-500 hover:bg-orange-600"
-                  }`}
+                    }`}
                 >
                   Confirm
                 </button>

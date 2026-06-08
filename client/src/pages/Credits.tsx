@@ -362,13 +362,12 @@ export default function Credits() {
                               </div>
                               <div className="text-right">
                                 <p
-                                  className={`font-medium ${
-                                    tx.type === "payment"
+                                  className={`font-medium ${tx.type === "payment"
                                       ? "text-green-600"
                                       : tx.type === "purchase"
-                                      ? "text-red-600"
-                                      : "text-gray-600 dark:text-gray-300"
-                                  }`}
+                                        ? "text-red-600"
+                                        : "text-gray-600 dark:text-gray-300"
+                                    }`}
                                 >
                                   {tx.type === "payment" ? "-" : "+"}₱
                                   {Number(tx.amount).toFixed(2)}
@@ -452,11 +451,10 @@ export default function Credits() {
                     </td>
                     <td className="px-4 py-3 text-right">
                       <span
-                        className={`font-medium ${
-                          Number(customer.creditBalance) > 0
+                        className={`font-medium ${Number(customer.creditBalance) > 0
                             ? "text-red-600"
                             : "text-green-600"
-                        }`}
+                          }`}
                       >
                         ₱{Number(customer.creditBalance).toFixed(2)}
                       </span>

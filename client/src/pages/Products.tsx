@@ -188,6 +188,49 @@ export default function Products() {
     setFormData(emptyProduct);
   };
 
+  const handleGenerateSKU = () => {
+    if (!formData.name.trim()) {
+      toast.error("Please enter a product name first to generate a structured SKU");
+      return;
+    }
+
+    // 1. Get Category Prefix (3 letters)
+    let catPrefix = "GEN";
+    if (formData.categoryId && categories) {
+      const category = categories.find((c) => c.id === formData.categoryId);
+      if (category) {
+        catPrefix = category.name
+          .replace(/[^a-zA-Z0-9]/g, "")
+          .substring(0, 3)
+          .toUpperCase();
+      }
+    }
+
+    // 2. Get Product Name abbreviation
+    const cleanedName = formData.name.trim().replace(/[^a-zA-Z0-9 ]/g, "");
+    const words = cleanedName.split(/\s+/).filter(Boolean);
+    let namePrefix = "";
+
+    if (words.length >= 2) {
+      // e.g. "Coca Cola" -> "CC"
+      namePrefix = words.map((w) => w[0]).join("").slice(0, 4).toUpperCase();
+    } else if (words.length === 1) {
+      // e.g. "Apple" -> "APPL"
+      namePrefix = words[0].slice(0, 4).toUpperCase();
+    }
+
+    if (!namePrefix) {
+      namePrefix = "PROD";
+    }
+
+    // 3. Add random numeric suffix for uniqueness (100-999)
+    const randomNum = Math.floor(100 + Math.random() * 900);
+
+    const generatedSku = `${catPrefix}-${namePrefix}-${randomNum}`;
+    setFormData((prev) => ({ ...prev, sku: generatedSku }));
+    toast.success(`Generated SKU: ${generatedSku}`);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -322,13 +365,12 @@ export default function Products() {
                     </td>
                     <td className="px-4 py-3 text-right">
                       <span
-                        className={`inline-flex items-center gap-1 ${
-                          product.stockQuantity === 0
+                        className={`inline-flex items-center gap-1 ${product.stockQuantity === 0
                             ? "text-red-600"
                             : product.stockQuantity <= product.minStockLevel
-                            ? "text-orange-600"
-                            : "text-gray-600 dark:text-gray-300"
-                        }`}
+                              ? "text-orange-600"
+                              : "text-gray-600 dark:text-gray-300"
+                          }`}
                       >
                         {product.stockQuantity <= product.minStockLevel && (
                           <AlertTriangle className="w-4 h-4" />
@@ -407,15 +449,24 @@ export default function Products() {
                   <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
                     SKU <span className="text-red-500">*</span>
                   </label>
-                  <input
-                    type="text"
-                    value={formData.sku}
-                    onChange={(e) =>
-                      setFormData({ ...formData, sku: e.target.value })
-                    }
-                    className="w-full px-3 py-2 text-gray-900 bg-white border rounded-lg dark:border-gray-600 focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
-                    required
-                  />
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={formData.sku}
+                      onChange={(e) =>
+                        setFormData({ ...formData, sku: e.target.value })
+                      }
+                      className="flex-1 px-3 py-2 text-gray-900 bg-white border rounded-lg dark:border-gray-600 focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={handleGenerateSKU}
+                      className="px-3 py-2 text-primary-600 transition bg-primary-50 border border-primary-200 rounded-lg dark:bg-primary-900/30 dark:border-primary-800 hover:bg-primary-100 dark:hover:bg-primary-900/50 dark:text-primary-400 text-sm font-medium shrink-0"
+                    >
+                      Auto-Gen
+                    </button>
+                  </div>
                 </div>
                 <div>
                   <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">

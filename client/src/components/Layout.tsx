@@ -112,11 +112,10 @@ export default function Layout() {
                   onClick={() => setSidebarOpen(false)}
                   className={`
                   flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors icon-animated
-                  ${
-                    isActive
+                  ${isActive
                       ? "bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400"
                       : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
-                  }
+                    }
                 `}
                 >
                   <item.icon className="w-5 h-5 transition-transform" />

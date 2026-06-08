@@ -296,9 +296,8 @@ export default function UserManagement() {
                   return (
                     <tr
                       key={user.id}
-                      className={`hover:bg-gray-50 dark:hover:bg-gray-700 ${
-                        !user.isActive ? "opacity-60" : ""
-                      }`}
+                      className={`hover:bg-gray-50 dark:hover:bg-gray-700 ${!user.isActive ? "opacity-60" : ""
+                        }`}
                     >
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-3">
@@ -326,9 +325,8 @@ export default function UserManagement() {
                       </td>
                       <td className="px-4 py-3">
                         <span
-                          className={`inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full capitalize ${
-                            roleColors[user.role]
-                          }`}
+                          className={`inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full capitalize ${roleColors[user.role]
+                            }`}
                         >
                           <RoleIcon className="w-3 h-3" />
                           {user.role}
@@ -336,11 +334,10 @@ export default function UserManagement() {
                       </td>
                       <td className="px-4 py-3">
                         <span
-                          className={`px-2 py-1 text-xs rounded-full ${
-                            user.isActive
+                          className={`px-2 py-1 text-xs rounded-full ${user.isActive
                               ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
                               : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400"
-                          }`}
+                            }`}
                         >
                           {user.isActive ? "Active" : "Inactive"}
                         </span>
@@ -532,11 +529,10 @@ export default function UserManagement() {
           deleteConfirm.user && deleteMutation.mutate(deleteConfirm.user.id)
         }
         title="Delete User"
-        message={`Are you sure you want to delete ${
-          deleteConfirm.user?.fullName ||
+        message={`Are you sure you want to delete ${deleteConfirm.user?.fullName ||
           deleteConfirm.user?.username ||
           "this user"
-        }? This action cannot be undone.`}
+          }? This action cannot be undone.`}
         confirmText="Delete"
         variant="danger"
         isLoading={deleteMutation.isPending}
