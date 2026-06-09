@@ -166,7 +166,7 @@ export default function Suppliers() {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-2 sm:p-4">
           <div className="bg-white dark:bg-gray-800 rounded-xl max-w-md w-full">
             <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
               <h3 className="font-semibold text-gray-900 dark:text-white">
@@ -207,7 +207,7 @@ export default function Suppliers() {
                   className="w-full px-3 py-2 border dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
                     Email

@@ -284,8 +284,8 @@ export default function StockMovements() {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-xl max-w-md w-full p-6">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-2 sm:p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-xl max-w-md w-full p-4 sm:p-6">
             <h3 className="font-semibold text-lg mb-4 text-gray-900 dark:text-white">
               {actionType === "receive" ? "Receive Stock" : "Adjust Stock"}
             </h3>

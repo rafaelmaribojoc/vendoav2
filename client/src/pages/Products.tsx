@@ -416,8 +416,8 @@ export default function Products() {
 
       {/* Add/Edit Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
-          <div className="bg-white dark:bg-gray-800 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/50">
+          <div className="bg-white dark:bg-gray-800 rounded-xl max-w-2xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
             <div className="sticky top-0 flex items-center justify-between p-4 bg-white border-b dark:border-gray-700 dark:bg-gray-800">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 {editingProduct ? "Edit Product" : "Add Product"}
@@ -429,7 +429,7 @@ export default function Products() {
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+            <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
                   <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -456,7 +456,7 @@ export default function Products() {
                       onChange={(e) =>
                         setFormData({ ...formData, sku: e.target.value })
                       }
-                      className="flex-1 px-3 py-2 text-gray-900 bg-white border rounded-lg dark:border-gray-600 focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
+                      className="flex-1 min-w-0 px-3 py-2 text-gray-900 bg-white border rounded-lg dark:border-gray-600 focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
                       required
                     />
                     <button
@@ -480,7 +480,7 @@ export default function Products() {
                         setFormData({ ...formData, barcode: e.target.value })
                       }
                       placeholder="Enter or scan barcode"
-                      className="flex-1 px-3 py-2 text-gray-900 bg-white border rounded-lg dark:border-gray-600 focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
+                      className="flex-1 min-w-0 px-3 py-2 text-gray-900 bg-white border rounded-lg dark:border-gray-600 focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
                     />
                     <button
                       type="button"

@@ -162,7 +162,7 @@ export default function Categories() {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/50">
           <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-xl">
             <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
               <h3 className="font-semibold text-gray-900 dark:text-white">
